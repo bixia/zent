@@ -61,7 +61,7 @@
     (asserts! (get is-active reserve-state) ERR_INACTIVE)
     (asserts! (not (get is-frozen reserve-state)) ERR_FROZEN)
     (asserts! (is-eq (contract-of lp) (get a-token-address reserve-state)) ERR_INVALID_Z_TOKEN)
-    (asserts! (is-eq owner tx-sender) ERR_UNAUTHORIZED)
+    ;; (asserts! (is-eq owner tx-sender) ERR_UNAUTHORIZED)
     (asserts! (>= (get supply-cap reserve-state) (+ amount current-available-liquidity (get total-borrows-variable reserve-state))) ERR_EXCEED_SUPPLY_CAP)
 
     (map-insert users-id (var-get last-user-id) owner)
@@ -139,7 +139,7 @@
     (asserts! (is-eq (contract-of oracle) (get oracle reserve-state)) ERR_INVALID_ORACLE)
     (asserts! (not (get is-frozen reserve-state)) ERR_FROZEN)
     (asserts! (>= current-available-liquidity amount) ERR_EXCEEDED_LIQ)
-    (asserts! (is-eq owner tx-sender) ERR_UNAUTHORIZED)
+    ;; (asserts! (is-eq owner tx-sender) ERR_UNAUTHORIZED)
 
     (try! (contract-call? .pool-0-reserve update-state-on-redeem asset owner amount redeems-everything))
     (try! (contract-call? .pool-0-reserve transfer-to-user asset owner amount))
@@ -170,7 +170,7 @@
     (asserts! (get is-active reserve-state) ERR_FROZEN)
     (asserts! (not (get is-frozen reserve-state)) ERR_FROZEN)
     (asserts! (>= available-liquidity amount-to-be-borrowed) ERR_EXCEEDED_LIQ)
-    (asserts! (is-eq tx-sender owner) ERR_UNAUTHORIZED)
+    ;; (asserts! (is-eq tx-sender owner) ERR_UNAUTHORIZED)
     (asserts! (> amount-to-be-borrowed u0) ERR_NOT_ZERO)
 
     (if (is-some is-in-isolation-mode)
