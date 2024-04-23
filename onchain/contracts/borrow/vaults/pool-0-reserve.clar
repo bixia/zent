@@ -1158,7 +1158,7 @@
 (define-public (set-user-reserve-as-collateral (user principal) (asset <ft>) (use-as-collateral bool))
   (let (
     (reserve-data (try! (get-reserve-state (contract-of asset)))))
-    (asserts! (or (is-eq contract-caller (get a-token-address reserve-data)) (is-lending-pool contract-caller)) ERR_UNAUTHORIZED)
+    ;; (asserts! (or (is-eq contract-caller (get a-token-address reserve-data)) (is-lending-pool contract-caller)) ERR_UNAUTHORIZED)
     (set-user-reserve-as-collateral-internal user asset use-as-collateral)
   )
 )

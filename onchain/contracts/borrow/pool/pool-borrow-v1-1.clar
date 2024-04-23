@@ -57,6 +57,7 @@
   (owner principal)
   )
   (let (
+
     (supplied-asset-principal (contract-of asset))
     (current-balance (try! (contract-call? lp get-balance owner)))
     (current-available-liquidity (try! (contract-call? .pool-0-reserve get-reserve-available-liquidity asset)))
