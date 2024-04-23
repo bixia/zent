@@ -15,6 +15,7 @@
   (owner principal)
   (referral (optional principal)))
   (let ((asset-principal (contract-of asset)))
+    (print {a: "i am in"})
     (try! (contract-call? .pool-borrow-v1-1 supply lp pool-reserve asset amount owner))
     (print { type: "supply-call", payload: { key: owner, data: {
       reserve-state: (try! (contract-call? .pool-0-reserve get-reserve-state asset-principal)),

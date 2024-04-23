@@ -3,12 +3,13 @@
 (define-constant ONE_8 u100000000) ;; 8 decimal places
 
 ;; set-price
-(contract-call? .oracle set-price .ststx u161000000)
-(contract-call? .oracle set-price .wstx u160000000)
-(contract-call? .oracle set-price .sbtc u4000000000000)
+(contract-call? .oracle set-price .ststx u100000000)
+(contract-call? .oracle set-price .wstx u100000000)
+(contract-call? .oracle set-price .sbtc u100000000)
 (contract-call? .oracle set-price .xusd u100000000)
-(contract-call? .oracle set-price .usda u99000000)
-(contract-call? .oracle set-price .diko u40000000)
+(contract-call? .oracle set-price .usda u100000000)
+(contract-call? .oracle set-price .diko u100000000)
+(contract-call? .oracle set-price .ststx u100000000)
 
 (contract-call? .pool-borrow init .lp-ststx .ststx u6 u340282366920938463463374607431768211455 u340282366920938463463374607431768211455 .oracle .interest-rate-strategy-default)
 (contract-call? .pool-borrow init .lp-wstx .wstx u6 u340282366920938463463374607431768211455 u340282366920938463463374607431768211455 .oracle .interest-rate-strategy-default)
@@ -28,7 +29,7 @@
 (contract-call? .pool-borrow set-borrowing-enabled .xusd true)
 (contract-call? .pool-borrow set-borrowing-enabled .diko true)
 (contract-call? .pool-borrow set-borrowing-enabled .usda true)
-(contract-call? .oracle set-price .ststx u160000000)
+
 (contract-call? .pool-borrow add-isolated-asset .ststx u100000000000000)
 (contract-call? .pool-borrow set-borroweable-isolated .xusd)
 (contract-call? .pool-borrow set-borroweable-isolated .usda)
@@ -120,7 +121,6 @@
 
 (print {a:"setUp finished"})
 
-
 (contract-call? .usda mint u10000000 user)
 (contract-call? .borrow-helper supply .lp-usda .pool-0-reserve .usda u10000000 user none)
 (contract-call? .borrow-helper set-user-use-reserve-as-collateral user .lp-usda .usda false .oracle 
@@ -132,30 +132,32 @@
     {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
     {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
     ))
-(print {a:"i am here"})
-(contract-call? .borrow-helper borrow .pool-0-reserve .oracle .xusd .lp-xusd 
-    (list 
-    {asset: .ststx, lp-token: .lp-ststx, oracle: .oracle}
-    {asset: .wstx, lp-token: .lp-wstx, oracle: .oracle}
-    {asset: .sbtc, lp-token: .lp-sbtc, oracle: .oracle}
-    {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
-    {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
-    {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
-    {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
-    {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
-    {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
-    {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
-    {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
-    {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
-    {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
-    {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
-    {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
-    {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
-    {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
-    {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
-    )
-    u1
-    .fees-calculator
-    u0
-    user
-    )
+(print {user: (contract-call? .lp-usda get-balance user)})
+(print {deployer: (contract-call? .lp-usda get-balance deployer)})
+(print {user: "user prepared"})
+;; (contract-call? .borrow-helper borrow .pool-0-reserve .oracle .xusd .lp-xusd 
+;;     (list 
+;;     {asset: .ststx, lp-token: .lp-ststx, oracle: .oracle}
+;;     {asset: .wstx, lp-token: .lp-wstx, oracle: .oracle}
+;;     {asset: .sbtc, lp-token: .lp-sbtc, oracle: .oracle}
+;;     {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
+;;     {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
+;;     {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
+;;     {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
+;;     {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
+;;     {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
+;;     {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
+;;     {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
+;;     {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
+;;     {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
+;;     {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
+;;     {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
+;;     {asset: .xusd, lp-token: .lp-xusd, oracle: .oracle}
+;;     {asset: .diko, lp-token: .lp-diko, oracle: .oracle}
+;;     {asset: .usda, lp-token: .lp-usda, oracle: .oracle}
+;;     )
+;;     u1
+;;     .fees-calculator
+;;     u0
+;;     user
+;;     )

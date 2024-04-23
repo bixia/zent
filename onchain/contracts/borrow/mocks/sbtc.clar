@@ -17,7 +17,7 @@
 
 (define-public (transfer (amount uint) (sender principal) (recipient principal) (memo (optional (buff 34))))
 	(begin
-		(asserts! (or (is-eq tx-sender sender) (is-eq contract-caller sender)) err-not-token-owner)
+		;; (asserts! (or (is-eq tx-sender sender) (is-eq contract-caller sender)) err-not-token-owner)
 		(ft-transfer? sbtc amount sender recipient)
 	)
 )
